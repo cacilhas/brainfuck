@@ -67,6 +67,7 @@ void machine_execute(machine_t *machine, const node_t *node) {
         case '.':
             c = (const char) machine->memory->value;
             printf("%c", c);
+            fflush(stdout);
             break;
 
         case ',':
