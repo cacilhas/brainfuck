@@ -1,0 +1,16 @@
+*~
+*.bak
+*.o
+*.swp
+*.swo
+
+.DS_Store
+.idea
+.localized
+
+/brainfuck
+/lex.yy.c
+/tmp
+/y.tab.*
+
+Icon?
