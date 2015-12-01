@@ -10,7 +10,7 @@ void machine_execute(machine_t *, const node_t *);
 machine_t *new_machine(node_t *tape, size_t depth) {
     machine_t *machine = (machine_t *) malloc(sizeof(machine_t));
     machine->tape = tape;
-    machine->memory = new_slot(0);
+    machine->memory = new_slots(128);
     machine->blocks = (node_t **) malloc(sizeof(node_t *) * depth);
     machine->block_count = 0;
     return machine;

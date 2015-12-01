@@ -13,7 +13,7 @@ typedef struct __slot {
 } slot_t;
 
 
-slot_t *new_slot(int64_t);
+slot_t *new_slots(size_t);
 slot_t *next_slot(slot_t *);
 slot_t *prev_slot(slot_t *);
 
