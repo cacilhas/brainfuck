@@ -1,5 +1,9 @@
 #include <stdlib.h>
+#include <iso646.h>
 #include "bfmem.h"
+
+slot_t *jump_to_last(slot_t *);
+
 
 slot_t *new_slots(size_t count) {
     if (count == 0)
@@ -29,9 +33,16 @@ slot_t *next_slot(slot_t *slot) {
 slot_t *prev_slot(slot_t *slot) {
     slot_t *prev = slot->previous;
     if (prev == NULL) {
-        prev = new_slots(1);
+        prev = jump_to_last(new_slots(32));
         slot->previous = prev;
         prev->next = slot;
     }
     return prev;
+}
+
+
+slot_t *jump_to_last(slot_t *slot) {
+    if ((slot == NULL) or (slot->next == NULL))
+        return slot;
+    return slot->next;
 }
