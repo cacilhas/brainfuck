@@ -48,6 +48,7 @@ void bf_perform() {
     free(blocks);
     blocks = NULL;
 
-    machine_t *machine = new_machine(root, depth);
-    machine_perform(machine);
+    machine_t machine;
+    initialise_machine(&machine, root, depth);
+    machine_perform(&machine);
 }

@@ -3,19 +3,21 @@
 
 #include <stdint.h>
 
-
-struct __slot;
-
-typedef struct __slot {
-    int64_t        value;
-    struct __slot *previous;
-    struct __slot *next;
-} slot_t;
+#define BFMEMSIZE 5000
 
 
-slot_t *new_slots(size_t);
-slot_t *next_slot(slot_t *);
-slot_t *prev_slot(slot_t *);
+#pragma pack(push, 4)
+typedef struct {
+    int64_t  slots[BFMEMSIZE];
+    size_t   position;
+    int64_t *slot;
+} memory_t;
+#pragma pack(pop)
+
+
+void initialise_memory(memory_t *);
+void next_slot(memory_t *);
+void prev_slot(memory_t *);
 
 
 #endif  // _BFMEM_H

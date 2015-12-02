@@ -1,19 +1,18 @@
 #include <stdlib.h>
 #include <iso646.h>
 #include <stdio.h>
+#include "bfmem.h"
 #include "machine.h"
 
 
 void machine_execute(machine_t *, const node_t *);
 
 
-machine_t *new_machine(node_t *tape, size_t depth) {
-    machine_t *machine = (machine_t *) malloc(sizeof(machine_t));
+void initialise_machine(machine_t *machine, node_t *tape, size_t depth) {
     machine->tape = tape;
-    machine->memory = new_slots(128);
+    initialise_memory(&machine->memory);
     machine->blocks = (node_t **) malloc(sizeof(node_t *) * depth);
     machine->block_count = 0;
-    return machine;
 }
 
 
@@ -25,7 +24,7 @@ void machine_perform(machine_t *machine) {
 
         if (current->zero) {
             if (current->nonzero) {
-                if (machine->memory->value) {
+                if (*machine->memory.slot) {
                     machine->blocks[machine->block_count++] = current;
                     current = current->nonzero;
 
@@ -49,29 +48,29 @@ void machine_execute(machine_t *machine, const node_t *node) {
 
     switch (node->op) {
         case '>':
-            machine->memory = next_slot(machine->memory);
+            next_slot(&machine->memory);
             break;
 
         case '<':
-            machine->memory = prev_slot(machine->memory);
+            prev_slot(&machine->memory);
             break;
 
         case '+':
-            ++machine->memory->value;
+            ++(*machine->memory.slot);
             break;
 
         case '-':
-            --machine->memory->value;
+            --(*machine->memory.slot);
             break;
 
         case '.':
-            c = (const char) machine->memory->value;
+            c = (const char) *machine->memory.slot;
             printf("%c", c);
             fflush(stdout);
             break;
 
         case ',':
-            scanf("%c", (char *) &machine->memory->value);
+            scanf("%c", (char *) machine->memory.slot);
             break;
 
         default:
