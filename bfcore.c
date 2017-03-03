@@ -18,10 +18,10 @@ void bf_add_operator(const char op) {
     node_t *current = new_node();
     current->op = op;
 
-    if (not statement) {
+    if (not statement)
         root = statement = current;
 
-    } else {
+    else {
         current->back = statement;
 
         if (statement->op == '[') {

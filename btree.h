@@ -9,10 +9,10 @@ struct __node;
 
 
 typedef struct __node {
-    char               op;
-    struct __node     *back;
-    struct __node     *zero;
-    struct __node     *nonzero;
+    char           op;
+    struct __node *back;
+    struct __node *zero;
+    struct __node *nonzero;
 } node_t;
 
 
